@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const pollutants = [
     { name: 'CO2', level: 130 },
@@ -8,10 +8,30 @@ const pollutants = [
 ];
 
 export default function AirQualityDashboard() {
+    const [selectedDate, setSelectedDate] = useState('Today');
+    const [showMenu, setShowMenu] = useState(false);
+    const [customDate, setCustomDate] = useState('');
+
+    const handleSelect = (value) => {
+        if (value === 'Custom') {
+            setSelectedDate('Custom');
+        } else {
+            setSelectedDate(value);
+            setCustomDate('');
+            setShowMenu(false);
+        }
+    };
+
+    const handleCustomDateChange = (e) => {
+        setCustomDate(e.target.value);
+        setSelectedDate(e.target.value);
+        setShowMenu(false);
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 p-8 font-sans">
             {/* Header */}
-            <header className="flex items-center justify-between border-b pb-4 mb-6">
+            <header className="flex items-center justify-between border-b pb-4 mb-6 relative">
                 <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-bold">
                         🌊
@@ -23,9 +43,42 @@ export default function AirQualityDashboard() {
                         <p className="text-sm text-gray-500">Air Pollution Dashboard</p>
                     </div>
                 </div>
-                <button className="bg-white border px-4 py-2 rounded-md shadow-sm text-sm font-medium">
-                    Today ⌄
-                </button>
+
+                {/* Dropdown Button */}
+                <div className="relative">
+                    <button
+                        onClick={() => setShowMenu(!showMenu)}
+                        className="bg-white border px-4 py-2 rounded-md shadow-sm text-sm font-medium"
+                    >
+                        {selectedDate} ⌄
+                    </button>
+
+                    {showMenu && (
+                        <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-md z-10">
+                            <button
+                                onClick={() => handleSelect('Today')}
+                                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                            >
+                                Today
+                            </button>
+                            <button
+                                onClick={() => handleSelect('Yesterday')}
+                                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                            >
+                                Yesterday
+                            </button>
+                            <div className="px-4 py-2">
+                                <label className="block text-xs text-gray-500 mb-1">Custom Date</label>
+                                <input
+                                    type="date"
+                                    value={customDate}
+                                    onChange={handleCustomDateChange}
+                                    className="w-full text-sm border rounded px-2 py-1"
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
             </header>
 
             {/* AQI Section */}
@@ -35,7 +88,7 @@ export default function AirQualityDashboard() {
                 </h2>
                 <div className="bg-white rounded-lg shadow p-6 text-center">
                     <p className="text-5xl font-bold text-indigo-600">200</p>
-                    <p className="text-sm text-gray-500 mt-2">AQI for today</p>
+                    <p className="text-sm text-gray-500 mt-2">AQI for: {selectedDate}</p>
                 </div>
             </section>
 
@@ -55,7 +108,6 @@ export default function AirQualityDashboard() {
                 </div>
             </section>
 
-            {/* Optional Footer */}
             <footer className="mt-12 text-center text-sm text-gray-400">
                 &copy; {new Date().getFullYear()} Air Quality Iran. All rights reserved.
             </footer>
