@@ -20,6 +20,9 @@ export default function BottomNavBar() {
             <NavLink to="/home" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
                 🏠 Home
             </NavLink>
+            <NavLink to="/map" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
+                🗺️ Map
+            </NavLink>
         </nav>
     );
 }
