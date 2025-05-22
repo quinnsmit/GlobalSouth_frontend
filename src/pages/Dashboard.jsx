@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
+import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 const pollutants = [
     { name: 'CO2', level: 130 },
     { name: 'NO2', level: 120 },
     { name: 'NH3', level: 12 },
     { name: 'SO2', level: 10 },
+];
+
+const weeklyData = [
+    { day: 'Mon', AQI: 120 },
+    { day: 'Tue', AQI: 150 },
+    { day: 'Wed', AQI: 200 },
+    { day: 'Thu', AQI: 180 },
+    { day: 'Fri', AQI: 130 },
+    { day: 'Sat', AQI: 160 },
+    { day: 'Sun', AQI: 140 },
 ];
 
 export default function Dashboard() {
@@ -33,7 +44,8 @@ export default function Dashboard() {
             {/* Header */}
             <header className="flex items-center justify-between border-b pb-4 mb-6 relative">
                 <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-bold">
+                    <div
+                        className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-bold">
                         🌊
                     </div>
                     <div>
@@ -80,6 +92,18 @@ export default function Dashboard() {
                     )}
                 </div>
             </header>
+
+            <div className="w-full h-48 bg-white rounded-xl shadow px-4 py-2 mb-6">
+                <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={weeklyData}>
+                        <CartesianGrid strokeDasharray="3 3"/>
+                        <XAxis dataKey="day"/>
+                        <YAxis domain={[0, 300]}/>
+                        <Tooltip/>
+                        <Line type="monotone" dataKey="AQI" stroke="#6b21a8" strokeWidth={3} dot={{r: 4}}/>
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
 
             {/* AQI Section */}
             <section className="mb-8">

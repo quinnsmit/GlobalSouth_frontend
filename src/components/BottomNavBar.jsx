@@ -18,8 +18,8 @@ export default function BottomNavBar() {
                 🗺️ Map
             </NavLink>
 
-            <NavLink to="/settings" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
-                ⚙️ Settings
+            <NavLink to="/weekly" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
+                ⚙️ Weekly Overview
             </NavLink>
             <NavLink to="/aqi-info" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
                 👤 Info
