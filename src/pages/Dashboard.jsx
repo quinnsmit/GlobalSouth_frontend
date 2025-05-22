@@ -7,7 +7,7 @@ const pollutants = [
     { name: 'SO2', level: 10 },
 ];
 
-export default function AirQualityDashboard() {
+export default function Dashboard() {
     const [selectedDate, setSelectedDate] = useState('Today');
     const [showMenu, setShowMenu] = useState(false);
     const [customDate, setCustomDate] = useState('');
@@ -29,7 +29,7 @@ export default function AirQualityDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-8 font-sans">
+        <div className="w-full min-h-screen bg-gray-50 p-8 font-sans pb-24">
             {/* Header */}
             <header className="flex items-center justify-between border-b pb-4 mb-6 relative">
                 <div className="flex items-center space-x-3">
