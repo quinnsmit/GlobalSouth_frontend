@@ -15,10 +15,14 @@ export default function Home() {
 
                 {/* Illustration (replace with real image or keep placeholder) */}
                 <div className="bg-blue-100 rounded-3xl shadow-md p-6 text-center">
-                    <div className="w-full h-48 bg-blue-300 rounded-lg mb-4 flex items-center justify-center text-white font-bold text-xl">
-                        {/* You can replace this with an actual <img /> later */}
-                        Illustration Here
-                    </div>
+                    <div className="w-full h-48 bg-blue-300 rounded-lg mb-4 overflow-hidden flex items-center justify-center">
+  <img
+    src="/Group 32.png"
+    alt="Home Illustration"
+    className="h-full object-contain"
+  />
+</div>
+
 
                     {/* Title */}
                     <h2 className="text-lg font-semibold text-gray-800 mb-2">

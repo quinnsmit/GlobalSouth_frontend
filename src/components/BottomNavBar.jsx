@@ -1,29 +1,47 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+
+const navItems = [
+  { to: '/home', icon: '🏠', label: 'Home' },
+  { to: '/', icon: '📊', label: 'Stats' },
+  { to: '/map', icon: '🗺️', label: 'Map' },
+  { to: '/weekly', icon: '⚙️', label: 'Weekly' },
+  { to: '/aqi-info', icon: '👤', label: 'Info' },
+];
 
 export default function BottomNavBar() {
-    const baseStyle = 'flex-1 text-center py-3 text-sm';
-    const active = 'text-blue-600 font-bold';
-    const inactive = 'text-gray-500';
+  const location = useLocation();
 
-    return (
-        <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-md flex border-t z-50">
-            <NavLink to="/home" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
-                🏠 Home
-            </NavLink>
-            <NavLink to="/" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
-                📊 Stats Dashboard
-            </NavLink>
-            <NavLink to="/map" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
-                🗺️ Map
-            </NavLink>
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 border-t bg-background shadow z-50 flex justify-around py-3">
+      {navItems.map((item) => {
+        const isActive = location.pathname === item.to;
 
-            <NavLink to="/weekly" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
-                ⚙️ Weekly Overview
-            </NavLink>
-            <NavLink to="/aqi-info" className={({ isActive }) => `${baseStyle} ${isActive ? active : inactive}`}>
-                👤 Info
-            </NavLink>
-        </nav>
-    );
+        return (
+          <NavLink key={item.to} to={item.to} className="flex flex-col items-center text-xs gap-1">
+            <Button
+              variant="ghost"
+              size="lg"
+              className={cn(
+                'text-2xl p-3 rounded-full',
+                isActive ? 'text-primary' : 'text-muted-foreground'
+              )}
+            >
+              {item.icon}
+            </Button>
+            <span
+              className={cn(
+                'text-sm font-medium',
+                isActive ? 'text-primary' : 'text-muted-foreground'
+              )}
+            >
+              {item.label}
+            </span>
+          </NavLink>
+        );
+      })}
+    </nav>
+  );
 }
